@@ -25,13 +25,13 @@ This project converts my nightly sleep behavior into a **synthetic futures marke
 **A negative index** = slept less.
 
 $$
-\text{SleepIndex}_{t} = \text{hours\_slept}_{t} - 7.5
+SleepIndex_t = hours\!sleept_t - 7.5
 $$
 
 ## Synthetic Futures Contract:
 
 $$
-\text{Payoff}_{t+1} = \text{CONTRACT\_MULTIPLIER} \times \text{SleepIndex}_{t+1}
+Payoff_{t+1} = ContractMultiplier \times SleepIndex_{t+1}
 $$
 
 **Trading Logic:**
