@@ -1,6 +1,23 @@
 import matplotlib.pyplot as plt
 import pandas as pd
+import os
+def _save_plot(default_name: str, out_path: str | None):
+    """
+    Helper to save the current Matplotlib figure.
+    If out_path is None, saves to charts/<default_name>.
+    Ensures the directory exists.
+    """
+    if out_path is None:
+        out_path = os.path.join("charts", default_name)
 
+    out_dir = os.path.dirname(out_path)
+    if out_dir and not os.path.exists(out_dir):
+        os.makedirs(out_dir, exist_ok=True)
+
+    plt.tight_layout()
+    plt.savefig(out_path, dpi=300)
+    plt.close()
+    print(f"[plot] saved → {out_path}")
 
 def plot_sleep_index(df_daily: pd.DataFrame, out_path: str | None = None):
     plt.figure()
@@ -10,28 +27,7 @@ def plot_sleep_index(df_daily: pd.DataFrame, out_path: str | None = None):
     plt.ylabel("SleepIndex (hours vs target)")
     plt.xlabel("Date")
     plt.tight_layout()
-    if out_path:
-        plt.savefig(out_path)
-    else:
-        plt.show()
-
-
-def plot_forecast_vs_actual(
-    y_test: pd.Series,
-    y_pred: pd.Series,
-    out_path: str | None = None,
-):
-    plt.figure()
-    y_test.plot(label="Actual SleepIndex (t+1)")
-    y_pred.plot(label="Predicted SleepIndex (t+1)")
-    plt.axhline(0, linestyle="--", alpha=0.5)
-    plt.legend()
-    plt.title("Forecast vs Actual Next-Day SleepIndex")
-    plt.tight_layout()
-    if out_path:
-        plt.savefig(out_path)
-    else:
-        plt.show()
+    _save_plot("plot_sleep_index.png", out_path)
 
 
 def plot_pnl_curve(trades: pd.DataFrame, out_path: str | None = None):
@@ -41,11 +37,7 @@ def plot_pnl_curve(trades: pd.DataFrame, out_path: str | None = None):
     plt.ylabel("PnL ($)")
     plt.xlabel("Date (contract expiry)")
     plt.tight_layout()
-    if out_path:
-        plt.savefig(out_path)
-    else:
-        plt.show()
-
+    _save_plot("plot_pnl_curve.png", out_path)
 
 def plot_sleep_volatility(df_daily: pd.DataFrame, out_path: str | None = None):
     """
@@ -58,7 +50,5 @@ def plot_sleep_volatility(df_daily: pd.DataFrame, out_path: str | None = None):
     plt.xlabel("Std Dev of SleepIndex")
     plt.ylabel("Count")
     plt.tight_layout()
-    if out_path:
-        plt.savefig(out_path)
-    else:
-        plt.show()
+    _save_plot("plot_sleep_volatility.png", out_path)
+
