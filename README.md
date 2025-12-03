@@ -1,37 +1,19 @@
 # Sleep Futures Quant Research Project
 
-**Built with Python, CatBoost, Time-Series Engineering & Streamlit**
+**Time-Series Modeling • CatBoost • Synthetic Derivatives • Backtesting • Streamlit Dashboard**
 
-This project transforms my daily sleep behavior into a **tradable synthetic futures market**, using a full quant workflow:
+Sleep Futures is a **behavioral–finance quant research project** that transforms my daily sleep patterns into a *tradable synthetic futures contract*.
+Using engineered features, nonlinear classification modeling, and a custom long/short backtesting engine, the system forecasts the direction of tomorrow’s Sleep Index and trades on it.
 
-- Data engineering
-- Feature modeling
-- Classification forecasting
-- Trading strategy construction
-- Backtesting with PnL, Sharpe, and drawdowns
-- Visualization dashboard
-
+The result: a unique project that blends **quant research, machine learning, and personal behavioral data** into a fully simulated alpha-generating strategy.
 This makes it a unique **behavioral-finance + time-series modeling project with real forecasting, alpha signals, and a fully implemented trading simulation.**
 
 # Project Summary
 
-- Sleep Index
-- directional classifier (predict ↑ / ↓ sleep tomorrow)
-- synthetic futures contract with payoff linked to next-day SleepIndex
-- trading strategy using model-predicted positions
-- backtest with full quant metrics
-- Streamlit dashboard for visualization
+This project converts my nightly sleep behavior into a **synthetic futures market** by defining a *Sleep Index* and *forecasting its next-day direction*. A CatBoostClassifier generates *long/short signals*, which feed into a backtesting engine with **PnL, Sharpe, and drawdown tracking**.
 
-# Example Model Performance
-
-**Classification Metrics**
-
-- Overall Accuracy: 66.67%
-- Directional Accuracy (ignoring neutral): 66.67%
-
-**Backtest Results (Direction Strategy)**
-
-- Total PnL: $76.83
+**The strategy achieves:**
+- PnL: +$76.83
 - Sharpe Ratio: 9.287
 - Max Drawdown: –$13.17
 
@@ -39,26 +21,37 @@ This makes it a unique **behavioral-finance + time-series modeling project with 
 
 ## Sleep Index Definition:
 $$
-\mathrm{SleepIndex}_t = \mathrm{hours\_slept}_t - 7.5
+\text{SleepIndex}_t = \text{hours\_slept}_t - 7.5
 $$
 
-`A positive index = slept more than target.`
-`A negative index = slept less.`
+
+**A positive index** = slept more than target.
+**A negative index** = slept less.
 
 ## Synthetic Futures Contract:
 $$
-\text{Payoff}_t+1​ = CONTRACT_MULTIPLIER × \text{SleepIndex}_t+1
+\text{Payoff}_{t+1} = \text{CONTRACT\_MULTIPLIER} \times \text{SleepIndex}_{t+1}
 $$
 
-The model forecasts whether tomorrow’s Sleep Index will be:
+**Trading Logic:**
 
- - **Up → Go long**
-- **Down → Go short**
-- **Neutral → Stay flat**
-
-**PnL is determined by how well the model predicts tomorrow’s direction.**
+- Predict ↑ → LONG
+- Predict ↓ → SHORT
+- Predict → → FLAT
 
 
+# Example Performance
+
+**Classification Metrics:**
+
+- Accuracy: 66.67%
+- Directional Accuracy (ex-neutral): 66.67%
+- Backtest (Directional Strategy)
+- Total PnL: $76.83
+- Sharpe Ratio: 9.287
+- Max Drawdown: –$13.17
+
+**These values show strong signal-to-noise (high Sharpe) and effective directional prediction.**
 
 # Visualizations & Interpretation
 
@@ -70,11 +63,10 @@ The model forecasts whether tomorrow’s Sleep Index will be:
 
 **Interpretation:**
 
-- Positive spikes = great sleep (+3 to +10 hours)
-- Negative spikes = undersleeping
-- The dashed zero line is “target sleep" reference
-- Variance shows how inconsistent or steady sleep habits are
-- This serves as the underlying time series for modeling.
+- Positive spikes = overslept
+- Negative dips = underslept
+- Volatility reflects behavioral inconsistency
+- This time series is the core forecasting target
 
 ## 2. Sleep Volatility Histogram
 
@@ -104,75 +96,43 @@ The model forecasts whether tomorrow’s Sleep Index will be:
 
 # Features
 
-**Engineering:**
+**Includes both statistical and behavioral features:**
 
-- 3-day, 7-day, 14-day rolling means
+- Rolling means (3, 7, 14 days)
 - Sleep deficit
 - Circadian drift (bedtime deviation)
 - Sleep efficiency
-- Day-of-week indicators
-- Weekend/weekday flag
-- Next-day classification target (↑, ↓, →)
+- Day-of-week one-hots
+- Weekend vs weekday
+- Next-day directional target (↑, ↓, →)
 
-**Modeling:**
+# Modeling
 
-- CatBoostClassifier (best for nonlinear tabular time series)
+- CatBoostClassifier (best-in-class for nonlinear tabular TS data)
 - Chronological train/test split
 - Early stopping
-- Multi-class classification using direction labels
+- Multi-class direction prediction
 
-# Trading Strategy Logic
+# Trading Strategy & Backtest
 
-```bash
-If model predicts ↑ → take LONG position
-If model predicts ↓ → take SHORT position
-If model predicts → → stay FLAT
-PnL = SleepIndex(t+1) * contract_multiplier
-```
-
-**Backtest includes:**
-
+- Custom long/short engine
+- Daily returns calculation
 - Cumulative PnL
-- Daily returns
 - Sharpe ratio
-- Max drawdown
+- Max drawdown tracking
+- Performance visualization
 
 
 # Why This Project Matters
 
 This pipeline demonstrates real quant concepts:
 
-- Signal generation: SleepIndex dynamics
-- Feature engineering: rolling windows, drift, volatility
-- Classification modeling: direction forecasting
-- Derivatives pricing: custom payoff functions
-- Backtesting: Sharpe, drawdowns, PnL
-
-**Visualization: monitoring signals & risk**
-
-# Technology Stack
-```bash
-- Python
-- pandas
-- numpy
-- matplotlib
-- catboost
-- scikit-learn
-- statsmodels
-- Visualization
-- Matplotlib
-- Streamlit
-- Modeling
-- CatBoostClassifier
-- Rolling features
-- Classification targets
-- Volatility estimation
-- Backtesting
-- Custom long/short engine
-- PnL simulation
-- Drawdown tracking
-- Sharpe ratio calculation
-```
+- Signal generation from behavioral time-series
+- Feature engineering with rolling windows & volatility
+- ML forecasting using nonlinear classifiers
+- Derivative payoff construction
+- Backtesting + risk metrics used in hedge funds
+- Visualization tooling for explaining and monitoring signals
 
 # Project Architecture
 
