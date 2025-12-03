@@ -33,6 +33,7 @@ $$
 \text{Payoff}_{t+1} = \text{CONTRACT\_MULTIPLIER} \times \text{SleepIndex}_{t+1}
 $$
 
+
 **Trading Logic:**
 
 - Predict ↑ → LONG
