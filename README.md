@@ -21,13 +21,12 @@ This project converts my nightly sleep behavior into a **synthetic futures marke
 
 ## Sleep Index Definition:
 
+**A positive index** = slept more than target.
+**A negative index** = slept less.
+
 $$
 \text{SleepIndex}_{t} = \text{hours\_slept}_{t} - 7.5
 $$
-
-
-**A positive index** = slept more than target.
-**A negative index** = slept less.
 
 ## Synthetic Futures Contract:
 
