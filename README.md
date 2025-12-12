@@ -68,8 +68,7 @@ Directional exposure is taken based on the model’s forecast.
 - Cumulative returns
 - Sharpe ratio
 - Maximum drawdown
-
-Performance visualization
+- Performance visualization
 
 # Results
 
@@ -108,7 +107,7 @@ These results indicate **strong signal-to-noise within sample**, while acknowled
 
 **Interpretation:**
 
-- Most 7-day volatility is between 1.0 and 2.5
+- Most 7-day volatility is between 1.0 and 2.5 hours
 - High volatility means irregular sleep patterns
 - Helps explain why forecasting sleep is harder during chaotic periods
 
