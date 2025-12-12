@@ -1,38 +1,38 @@
 # Sleep Futures Quant Research Project
 
-**Time-Series Modeling • CatBoost • Synthetic Derivatives • Backtesting • Streamlit Dashboard**
+Built with **Python, CatBoost, Pandas, Matplotlib, and Streamlit**
 
-Sleep Futures is a **behavioral–finance quant research project** that transforms my daily sleep patterns into a *tradable synthetic futures contract*.
-Using engineered features, nonlinear classification modeling, and a custom long/short backtesting engine, the system forecasts the direction of tomorrow’s Sleep Index and trades on it.
+# Project Overview
 
-The result: a unique project that blends **quant research, machine learning, and personal behavioral data** into a fully simulated alpha-generating strategy.
-This makes it a unique **behavioral-finance + time-series modeling project with real forecasting, alpha signals, and a fully implemented trading simulation.**
+Sleep Futures is a **behavioral-finance quant research** project that transforms daily sleep behavior into a **synthetic futures contract** and evaluates whether sleep patterns contain **predictive directional information.**
 
-# Project Summary
+The project defines a *Sleep Index*, forecasts its **next-day direction** using a nonlinear classifier, and simulates a **long/short trading strategy** with full backtesting, risk metrics, and visualization.
 
-This project converts my nightly sleep behavior into a **synthetic futures market** by defining a *Sleep Index* and *forecasting its next-day direction*. A CatBoostClassifier generates *long/short signals*, which feed into a backtesting engine with **PnL, Sharpe, and drawdown tracking**.
-
-**The strategy achieves:**
-- PnL: +$76.83
-- Sharpe Ratio: 9.287
-- Max Drawdown: –$13.17
+This work is designed as a research and signal-evaluation framework, demonstrating how nontraditional behavioral data can be structured, modeled, and evaluated using real quant methodologies.
 
 # Core Concept
 
 ## Sleep Index Definition:
 
-**A positive index** = slept more than target.
-**A negative index** = slept less.
+The Sleep Index measures deviation from a target sleep duration:
 
 $$
 SleepIndex_t = hours\!sleept_t - 7.5
 $$
 
+**Positive** = overslept
+**Negative** = underslept
+
+
 ## Synthetic Futures Contract:
+
+A synthetic derivative is defined on the Sleep Index:
 
 $$
 Payoff_{t+1} = ContractMultiplier \times SleepIndex_{t+1}
 $$
+
+Directional exposure is taken based on the model’s forecast.
 
 **Trading Logic:**
 
@@ -40,19 +40,50 @@ $$
 - Predict ↓ → SHORT
 - Predict → → FLAT
 
+# Methodology
 
-# Example Performance
+## 1. Feature Engineering
+
+- Features combine statistical structure and behavioral context:
+- Rolling means (3, 7, 14 days)
+- Rolling volatility
+- Sleep deficit
+- Circadian drift (bedtime deviation)
+- Sleep efficiency
+- Day-of-week one-hot encoding
+- Weekend vs weekday indicators
+
+## 2. Modeling
+
+- CatBoostClassifier (nonlinear, tabular-friendly)
+- Multi-class direction prediction (↑ / ↓ / →)
+- Chronological train/test split
+- Early stopping to reduce overfitting
+- CatBoost was selected for its robustness on small, noisy, nonstationary datasets.
+
+## 3. Backtesting & Evaluation
+
+- Custom long/short backtesting engine
+- Daily PnL calculation
+- Cumulative returns
+- Sharpe ratio
+- Maximum drawdown
+
+Performance visualization
+
+# Results
+
+**Directoin Strategy Performance:**
+- Total PnL: $76.83
+- Sharpe Ratio: 9.287
+- Max Drawdown: –$13.17
 
 **Classification Metrics:**
 
 - Accuracy: 66.67%
 - Directional Accuracy (ex-neutral): 66.67%
-- Backtest (Directional Strategy)
-- Total PnL: $76.83
-- Sharpe Ratio: 9.287
-- Max Drawdown: –$13.17
 
-**These values show strong signal-to-noise (high Sharpe) and effective directional prediction.**
+These results indicate **strong signal-to-noise within sample**, while acknowledging limitations related to dataset size and non-independence
 
 # Visualizations & Interpretation
 
@@ -95,45 +126,6 @@ $$
 - Max drawdown shows the worst peak-to-bottom decline
 - This demonstrates alpha generation from behavioral patterns
 
-# Features
-
-**Includes both statistical and behavioral features:**
-
-- Rolling means (3, 7, 14 days)
-- Sleep deficit
-- Circadian drift (bedtime deviation)
-- Sleep efficiency
-- Day-of-week one-hots
-- Weekend vs weekday
-- Next-day directional target (↑, ↓, →)
-
-# Modeling
-
-- CatBoostClassifier (best-in-class for nonlinear tabular TS data)
-- Chronological train/test split
-- Early stopping
-- Multi-class direction prediction
-
-# Trading Strategy & Backtest
-
-- Custom long/short engine
-- Daily returns calculation
-- Cumulative PnL
-- Sharpe ratio
-- Max drawdown tracking
-- Performance visualization
-
-
-# Why This Project Matters
-
-This pipeline demonstrates real quant concepts:
-
-- Signal generation from behavioral time-series
-- Feature engineering with rolling windows & volatility
-- ML forecasting using nonlinear classifiers
-- Derivative payoff construction
-- Backtesting + risk metrics used in hedge funds
-- Visualization tooling for explaining and monitoring signals
 
 # Project Architecture
 
