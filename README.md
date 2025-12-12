@@ -1,4 +1,4 @@
-# Sleep Futures Quant Research Project
+# Sleep Futures: Behavioral Time-Series Quant Research
 
 Built with **Python, CatBoost, Pandas, Matplotlib, and Streamlit**
 
