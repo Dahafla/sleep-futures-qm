@@ -77,6 +77,10 @@ Directional exposure is taken based on the model’s forecast.
 - Sharpe Ratio: 9.287
 - Max Drawdown: –$13.17
 
+# Write-Up
+
+Medium Article: https://medium.com/@alfahad.connect/a-small-experiment-what-if-sleep-were-a-tradable-asset-4908623cb82d
+
 **Classification Metrics:**
 
 - Accuracy: 66.67%
